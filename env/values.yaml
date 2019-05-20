@@ -1,14 +1,31 @@
-expose:
-  Args: 
-    - --v
-    - 4
-  Annotations:
-    helm.sh/hook: post-install,post-upgrade
-    helm.sh/hook-delete-policy: hook-succeeded
-
+PipelineSecrets:
+  DockerConfig: '{"auths": {"docker-registry.default.svc:5000": {"auth": "c2VydmljZWFjY291bnQ6ZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNklpSjkuZXlKcGMzTWlPaUpyZFdKbGNtNWxkR1Z6TDNObGNuWnBZMlZoWTJOdmRXNTBJaXdpYTNWaVpYSnVaWFJsY3k1cGJ5OXpaWEoyYVdObFlXTmpiM1Z1ZEM5dVlXMWxjM0JoWTJVaU9pSnBibXR2Y0NJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZqY21WMExtNWhiV1VpT2lKcVpXNXJhVzV6TFhndGNtVm5hWE4wY25rdGRHOXJaVzR0TkdkeGNEY2lMQ0pyZFdKbGNtNWxkR1Z6TG1sdkwzTmxjblpwWTJWaFkyTnZkVzUwTDNObGNuWnBZMlV0WVdOamIzVnVkQzV1WVcxbElqb2lhbVZ1YTJsdWN5MTRMWEpsWjJsemRISjVJaXdpYTNWaVpYSnVaWFJsY3k1cGJ5OXpaWEoyYVdObFlXTmpiM1Z1ZEM5elpYSjJhV05sTFdGalkyOTFiblF1ZFdsa0lqb2lNREJqTkdOak16SXROMkZsWkMweE1XVTVMV0k0TkRZdE1EQXdaRE5oTW1SaVltSTBJaXdpYzNWaUlqb2ljM2x6ZEdWdE9uTmxjblpwWTJWaFkyTnZkVzUwT21sdWEyOXdPbXBsYm10cGJuTXRlQzF5WldkcGMzUnllU0o5Lk5kQUUxTFU1WW5BaUViRXpqeWtIZ0dQZ2h1RU9ublFWcV9tb1g0bWNRX05lSTM3S2tNMDRnUC1WenBub090NEZJRVFNRjh6M0liRVBIQ1ZFSGJ6RTdQSlNyb19GY3U2Mk1nWUo2cDdaZHdRd3hhbzZ6ektNNU5kWUVTN1ZGdUNtTE5GX1htLXFyeHVlVnY5dGZpaWd0U3IyMUg3RTZ1ZmhDQkg5bzRPaEJSWDA0blh1enJ2Y0t1bExTRWVzc0JoNmFwWmVlLVEyX3NxeGVqUWctMWYzQzNPZnl0dkU5ZE9kRndLVDM5MmhMdnlzRWNvTkVLZUV4ZkZ6cmFUSF85cHBtVFdEVF8tdWN0YlNCS2dXSWVlNDVyRmtDQ0pSNUZyb0U0bU1HajBRTlRxTTM4UUQ1SUtpN0VnaENGcHBoYVFsNkpROEQ0SjZIbEVZZWFWQTRnSjMyZw=="}}}'
 cleanup:
-  Args: 
-    - --cleanup
   Annotations:
     helm.sh/hook: pre-delete
     helm.sh/hook-delete-policy: hook-succeeded
+  Args:
+  - --cleanup
+controllerbuild:
+  enabled: true
+controllerworkflow:
+  enabled: false
+dockerRegistry: docker-registry.default.svc:5000
+expose:
+  Annotations:
+    helm.sh/hook: post-install,post-upgrade
+    helm.sh/hook-delete-policy: hook-succeeded
+  Args:
+  - --v
+  - 4
+  config:
+    domain: api.betalaibutik.se
+    exposer: Route
+    http: "true"
+jenkins:
+  Servers:
+    Global:
+      EnvVars:
+        TILLER_NAMESPACE: kube-system
+  enabled: false
+prow: {}
